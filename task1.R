@@ -40,11 +40,20 @@ vital$live.births = as.numeric(vital$live.births)
 vital$still.birth = as.numeric(vital$still.birth)
 vital$deaths = as.numeric(vital$deaths)
 
-barplot(t(as.matrix(vital)), beside=TRUE)
+# Changes for plot facilitation
 
-ggplot(vital, aes(x = c("live.births", "still.birth", "deaths"), fill = "year" )) +
-  geom_bar(position = position_dodge()) +
-  theme_classic()
+y = c()
+for (year in vital$year) {
+  y = c(y, rep (c(year), 3))
+}
 
-m_birth = mean (vital$`2`)
-m_birth
+class = rep (c("live.births", "still.death", "deaths"), 6)
+
+val = c()
+for (i in 1:length (vital [,1])) {
+  val = c(val, c(vital$live.births[i], vital$still.birth[i], vital$deaths[i]))
+}
+
+data = data.frame (y, class, val)
+
+ggplot(data, aes(fill=class, y=val, x=y)) + geom_bar(position="dodge", stat="identity")
