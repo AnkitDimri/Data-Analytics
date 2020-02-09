@@ -1,6 +1,7 @@
 library (tabulizer)
 library (dplyr)
 library (tidyr)
+library (ggplot2)
 
 tab = extract_tables (file = "~/ankit/Github/Data-Analytics/datasets/task1/CRS-2016.pdf")
 
@@ -20,11 +21,30 @@ df = separate(df, V2, into = c("2", "3", "4"), sep = ' ')
 df = separate(df, V3, into = c("5", "6"), sep = ' ')
 df = separate(df, V4, into = c("7", "8"), sep = ' ')
 
+# Rename columns
+colnames (df) [colnames(df) == "V1"] <- "year"
+colnames (df) [colnames(df) == "2"] <- "live.births"
+colnames (df) [colnames(df) == "3"] <- "still.birth"
+colnames (df) [colnames(df) == "4"] <- "deaths"
+colnames (df) [colnames(df) == "5"] <- "crs.births"
+colnames (df) [colnames(df) == "6"] <- "crs.deaths"
+colnames (df) [colnames(df) == "7"] <- "srs.births"
+colnames (df) [colnames(df) == "8"] <- "srs.deaths"
+
 # Print the tidy data frame
 df
 
 vital = df [, 1:4]
-vital$`2` = as.numeric(vital$`2`)
+vital$year = as.numeric(vital$year)
+vital$live.births = as.numeric(vital$live.births)
+vital$still.birth = as.numeric(vital$still.birth)
+vital$deaths = as.numeric(vital$deaths)
+
+barplot(t(as.matrix(vital)), beside=TRUE)
+
+ggplot(vital, aes(x = c("live.births", "still.birth", "deaths"), fill = "year" )) +
+  geom_bar(position = position_dodge()) +
+  theme_classic()
 
 m_birth = mean (vital$`2`)
 m_birth
