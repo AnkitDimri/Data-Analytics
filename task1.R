@@ -104,7 +104,16 @@ dis_data = data.frame (di, class, val)
 
 ggplot(dis_data, aes(fill=class, y=val, x=factor (di))) + geom_bar(position="dodge", stat="identity") + xlab ("Districts") + ylab ("rates") + ggtitle ("Birth, Death and Still Birth rates in Urban areas of districts\nKarnataka 2016") + scale_fill_discrete (labels=c("Birth rate (x2)", "Death rate", "Still Birth rate")) + coord_flip()
 
-boxplot (rates$Birth.rate, rates$Death.rate, rates$Still.Birth.rate, names = c("Birth rate", "Death rate", "Still Birth rate"))
+boxplot (rates$Birth.rate, rates$Death.rate, rates$Still.Birth.rate, names = c("Birth rate", "Death rate", "Still Birth rate"), ylab = "Rates", main = "Rate boxplot (No outliers for any rate\ndepicting no differnece in rate across Urban\nareas in all districts)")
+# No outliers in the plots, therefore the rates are similar accross all districts
+
+
+# Finding outliers
+br_out = boxplot (dist$Still.Birth.rate)$out
+br_out
+
+which (br_out %in% dist$Birth.rate)
+
 
 dist$Birth = as.numeric (dist$Birth)
 dist$Birth.rate = as.numeric (dist$Birth.rate)
