@@ -35,10 +35,10 @@ colnames (df) [colnames(df) == "8"] <- "srs.deaths"
 df
 
 vital = df [, 1:4]
-vital$year = as.numeric(vital$year)
-vital$live.births = as.numeric(vital$live.births)
-vital$still.birth = as.numeric(vital$still.birth)
-vital$deaths = as.numeric(vital$deaths)
+vital$year = vital$year 
+vital$live.births = as.numeric(vital$live.births) /1000
+vital$still.birth = as.numeric(vital$still.birth) /10
+vital$deaths = as.numeric(vital$deaths) / 400
 
 # Changes for plot facilitation
 
@@ -47,7 +47,7 @@ for (year in vital$year) {
   y = c(y, rep (c(year), 3))
 }
 
-class = rep (c("live.births", "still.death", "deaths"), 6)
+class = rep (c("live.births", "still.birth", "deaths"), 6)
 
 val = c()
 for (i in 1:length (vital [,1])) {
@@ -56,4 +56,8 @@ for (i in 1:length (vital [,1])) {
 
 data = data.frame (y, class, val)
 
-ggplot(data, aes(fill=class, y=val, x=y)) + geom_bar(position="dodge", stat="identity")
+# Plot 1
+ggplot(data, aes(fill=class, y=val, x=factor (y))) + geom_bar(position="dodge", stat="identity") + xlab ("Years") + ylab ("Value") + ggtitle ("Vital events: Birth, Still Birth and Deaths registered in the year 2011-16") + scale_fill_discrete (labels=c("Deaths (x400)", "Live Birth (x1000)", "Still Birth (x10)"))
+
+
+
