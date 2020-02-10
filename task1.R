@@ -1,9 +1,11 @@
+# importing libraries
 library (tabulizer)
 library (dplyr)
 library (tidyr)
 library (ggplot2)
 library (stringr)
 
+# extract all tables from the file
 tab = extract_tables (file = "~/ankit/Github/Data-Analytics/datasets/task1/CRS-2016.pdf")
 
 # Display table 6
@@ -58,10 +60,14 @@ for (i in 1:length (vital [,1])) {
 data = data.frame (y, class, val)
 
 # Plot 1: Vital statistics
+# Death: 1 unit is 400 deaths
+# Live birth: 1 unit is 1000 live births
+# Still birth: 1 unit is 10 still births
 ggplot(data, aes(fill=class, y=val, x=factor (y))) + geom_bar(position="dodge", stat="identity") + xlab ("Years") + ylab ("Value") + ggtitle ("Vital events: Birth, Still Birth and Deaths registered in the year 2011-16") + scale_fill_discrete (labels=c("Deaths (x400)", "Live Birth (x1000)", "Still Birth (x10)"))
 
+###############################################################################
 
-# Districtwise registered birth and deaths
+# District wise registered birth and deaths
 dist = tab [[10]]
 dist
 
@@ -88,9 +94,10 @@ dist$Infant.death = as.numeric (dist$Infant.death)
 dist$Still.Birth = as.numeric (dist$Still.Birth)
 dist$Still.Birth.rate = as.numeric (dist$Still.Birth.rate)
 
+# cleaned up data frame
 dist
 
-rates = data.frame (District = dist$District, Birth.rate = as.numeric(dist$Birth.rate), Death.rate = as.numeric(dist$Death.rate), Still.Birth.rate = as.numeric(dist$Still.Birth.rate))
+rates = data.frame (District = dist$District, Birth.rate = dist$Birth.rate, Death.rate = dist$Death.rate, Still.Birth.rate = dist$Still.Birth.rate)
 rates
 
 # rate data for plotting
@@ -109,13 +116,12 @@ for (i in 1:length (vital [,1])) {
 
 dis_data = data.frame (di, class, val)
 
-
-
+# plot
+# Birth rate: multiply the unit by 2 to get actual rate
 ggplot(dis_data, aes(fill=class, y=val, x=factor (di))) + geom_bar(position="dodge", stat="identity") + xlab ("Districts") + ylab ("rates") + ggtitle ("Birth, Death and Still Birth rates in Urban areas of districts\nKarnataka 2016") + scale_fill_discrete (labels=c("Birth rate (x2)", "Death rate", "Still Birth rate")) + coord_flip()
 
+# Boxplot for different rates accross districts 2016
 boxplot (rates$Birth.rate, rates$Death.rate, rates$Still.Birth.rate, names = c("Birth rate", "Death rate", "Still Birth rate"), ylab = "Rates", main = "Rate boxplot (No outliers for any rate\ndepicting no differnece in rate across Urban\nareas in all districts)")
-# No outliers in the plots, therefore the rates are similar accross all districts
-
 
 # Finding outliers
 br_out = boxplot (dist$Still.Birth.rate)$out
@@ -123,7 +129,10 @@ br_out
 
 which (br_out %in% dist$Birth.rate)
 
+# No outliers in the plots, therefore the rates are similar accross all districts
 
+
+# Pie charts showing the contribution of each district in the total birth and death accross the state
 pie (dist$Birth, labels = dist$District, col=rainbow(length(dist$District)), main = "Birth contribution accross Districts in Urban areas-2016", radius = 0.9, cex = 0.7, font = 2, init.angle = 46)
 pie (dist$Death, labels = dist$District, col=rainbow(length(dist$District)), main = "Death contribution accross Districts in Urban areas-2016", radius = 0.9, cex = 0.7, font = 2, init.angle = 40)
 
