@@ -126,3 +126,33 @@ which (br_out %in% dist$Birth.rate)
 
 pie (dist$Birth, labels = dist$District, col=rainbow(length(dist$District)), main = "Birth contribution accross Districts in Urban areas-2016", radius = 0.9, cex = 0.7, font = 2, init.angle = 46)
 pie (dist$Death, labels = dist$District, col=rainbow(length(dist$District)), main = "Death contribution accross Districts in Urban areas-2016", radius = 0.9, cex = 0.7, font = 2, init.angle = 40)
+
+
+
+####################
+# Basic Statistics #
+####################
+
+# District with minimum birth rate 2016
+rates [which (rates$Birth.rate == min (rates$Birth.rate)),c(1,2)]
+
+# District with maximum birth rate 2016
+rates [which (rates$Birth.rate == max (rates$Birth.rate)),c(1,2)]
+
+# Mean of birth rate 2016
+print (mean (rates$Birth.rate))
+
+# Mean birth accross districts 2016
+print (as.integer (mean (dist$Birth)))
+
+# Median of birth rate accross districts 2016
+print (median (rates$Birth.rate))
+
+# varience of birth rate accross districts
+print (var (rates$Birth.rate))
+
+# Standard deviation of birth rate accross districts 2016
+print (sd (rates$Birth.rate))
+
+# Total summary of rates accross districts in 2016
+summary (rates)
