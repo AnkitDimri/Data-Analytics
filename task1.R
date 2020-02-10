@@ -79,6 +79,15 @@ val = str_remove (val, "[:space:]+")
 dist = data.frame (District = dst, v = val)
 
 dist = separate(dist, v, into = c("Birth", "Birth.rate", "Death", "Death.rate", "Infant.death", "Still.Birth", "Still.Birth.rate"), sep = '[:blank:]+')
+
+dist$Birth = as.numeric (dist$Birth)
+dist$Birth.rate = as.numeric (dist$Birth.rate)
+dist$Death = as.numeric (dist$Death)
+dist$Death.rate = as.numeric (dist$Death.rate)
+dist$Infant.death = as.numeric (dist$Infant.death)
+dist$Still.Birth = as.numeric (dist$Still.Birth)
+dist$Still.Birth.rate = as.numeric (dist$Still.Birth.rate)
+
 dist
 
 rates = data.frame (District = dist$District, Birth.rate = as.numeric(dist$Birth.rate), Death.rate = as.numeric(dist$Death.rate), Still.Birth.rate = as.numeric(dist$Still.Birth.rate))
@@ -115,13 +124,5 @@ br_out
 which (br_out %in% dist$Birth.rate)
 
 
-dist$Birth = as.numeric (dist$Birth)
-dist$Birth.rate = as.numeric (dist$Birth.rate)
-dist$Death = as.numeric (dist$Death)
-dist$Death.rate = as.numeric (dist$Death.rate)
-dist$Infant.death = as.numeric (dist$Infant.death)
-dist$Still.Birth = as.numeric (dist$Still.Birth)
-dist$Still.Birth.rate = as.numeric (dist$Still.Birth.rate)
-
-pie (dist$Birth, labels = dist$District, col=rainbow(length(dist$District)), main = "Birth accross Districts in Urban areas-2016", radius = 0.9, cex = 0.7, font = 2, init.angle = 46)
-pie (dist$Death, labels = dist$District, col=rainbow(length(dist$District)), main = "Death accross Districts in Urban areas-2016", radius = 0.9, cex = 0.7, font = 2, init.angle = 40)
+pie (dist$Birth, labels = dist$District, col=rainbow(length(dist$District)), main = "Birth contribution accross Districts in Urban areas-2016", radius = 0.9, cex = 0.7, font = 2, init.angle = 46)
+pie (dist$Death, labels = dist$District, col=rainbow(length(dist$District)), main = "Death contribution accross Districts in Urban areas-2016", radius = 0.9, cex = 0.7, font = 2, init.angle = 40)
