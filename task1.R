@@ -81,5 +81,55 @@ dist = data.frame (District = dst, v = val)
 dist = separate(dist, v, into = c("Birth", "Birth.rate", "Death", "Death.rate", "Infant.death", "Still.Birth", "Still.Birth.rate"), sep = '[:blank:]+')
 dist
 
-rates = data.frame (District = dist$District, Birth.rate = dist$Birth.rate, Death.rate = dist$Death.rate, Still.Birth.rate = dist$Still.Birth.rate)
+rates = data.frame (District = dist$District, Birth.rate = as.numeric(dist$Birth.rate), Death.rate = as.numeric(dist$Death.rate), Still.Birth.rate = as.numeric(dist$Still.Birth.rate))
 rates
+
+# rate data for plotting
+
+di = c()
+for (dis in rates$District) {
+   di = c(di, rep (c(dis), 3))
+}
+
+class = rep (c("Birth.rate", "Death.rate", "Still.Birth.rate"), 30)
+
+val = c()
+for (i in 1:length (vital [,1])) {
+  val = c(val, c(rates$Birth.rate[i] / 2, rates$Death.rate[i], rates$Still.Birth.rate[i]))
+}
+
+dis_data = data.frame (di, class, val)
+
+
+
+ggplot(dis_data, aes(fill=class, y=val, x=factor (di))) + geom_bar(position="dodge", stat="identity") + xlab ("Districts") + ylab ("rates") + ggtitle ("Birth, Death and Still Birth rates in Urban areas of districts\nKarnataka 2016") + scale_fill_discrete (labels=c("Birth rate (x2)", "Death rate", "Still Birth rate")) + coord_flip()
+
+
+
+
+
+
+
+
+
+
+
+
+
+boxplot (rates$Birth.rate, rates$Death.rate, rates$Still.Birth.rate, names = c("Birth rate", "Death rate", "Still Birth rate"))
+text(y = boxplot.stats(rates)$stats, labels = boxplot.stats(rates)$stats)
+
+
+
+
+dist$Birth = as.numeric (dist$Birth)
+dist$Birth.rate = as.numeric (dist$Birth.rate)
+dist$Death = as.numeric (dist$Death)
+dist$Death.rate = as.numeric (dist$Death.rate)
+dist$Infant.death = as.numeric (dist$Infant.death)
+dist$Still.Birth = as.numeric (dist$Still.Birth)
+dist$Still.Birth.rate = as.numeric (dist$Still.Birth.rate)
+
+pie (dist$Birth, labels = dist$District, col=rainbow(length(dist$District)), main = "Birth accross Districts in Urban areas-2016")
+pie (dist$Death, labels = dist$District, col=rainbow(length(dist$District)), main = "Death accross Districts in Urban areas-2016")
+                                                     
