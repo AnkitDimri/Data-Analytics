@@ -2,6 +2,7 @@ library (tabulizer)
 library (dplyr)
 library (tidyr)
 library (ggplot2)
+library (stringr)
 
 tab = extract_tables (file = "~/ankit/Github/Data-Analytics/datasets/task1/CRS-2016.pdf")
 
@@ -56,8 +57,26 @@ for (i in 1:length (vital [,1])) {
 
 data = data.frame (y, class, val)
 
-# Plot 1
+# Plot 1: Vital statistics
 ggplot(data, aes(fill=class, y=val, x=factor (y))) + geom_bar(position="dodge", stat="identity") + xlab ("Years") + ylab ("Value") + ggtitle ("Vital events: Birth, Still Birth and Deaths registered in the year 2011-16") + scale_fill_discrete (labels=c("Deaths (x400)", "Live Birth (x1000)", "Still Birth (x10)"))
 
 
+# Districtwise registered birth and deaths
+dist = tab [[10]]
+dist
 
+# Clean-up the data
+dist = dist [9:38,]
+dist
+
+dist = as.data.frame (dist)
+dist
+
+dst = str_extract(dist$V2, '[^[:digit:]]+')
+val = str_remove_all (dist$V2, "[[A-Z]\\(\\)]")
+val = str_remove (val, "[:space:]+")
+
+dist = data.frame (District = dst, v = val)
+
+dist = separate(dist, v, into = c("Birth", "Birth.rate", "Death", "Death.rate", "Infant.death", "Still.Birth", "Still.Birth.death"), sep = '[:blank:]+')
+dist
