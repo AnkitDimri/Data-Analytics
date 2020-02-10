@@ -78,5 +78,8 @@ val = str_remove (val, "[:space:]+")
 
 dist = data.frame (District = dst, v = val)
 
-dist = separate(dist, v, into = c("Birth", "Birth.rate", "Death", "Death.rate", "Infant.death", "Still.Birth", "Still.Birth.death"), sep = '[:blank:]+')
+dist = separate(dist, v, into = c("Birth", "Birth.rate", "Death", "Death.rate", "Infant.death", "Still.Birth", "Still.Birth.rate"), sep = '[:blank:]+')
 dist
+
+rates = data.frame (District = dist$District, Birth.rate = dist$Birth.rate, Death.rate = dist$Death.rate, Still.Birth.rate = dist$Still.Birth.rate)
+rates
