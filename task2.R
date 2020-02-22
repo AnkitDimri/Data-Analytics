@@ -20,7 +20,7 @@ for (over in overs) {
 total_runs
 run_over = data.frame (over = overs, runs = total_runs)
 
-ggplot(run_over, aes(over,runs), las=2) + geom_line(color = "green")
+ggplot(run_over, aes(over,runs), las=2) + geom_line(color = "green") + labs (title = "Runs scored per over in the IPL season 2019", x = "Over", y = "Runs")
 
 
 wickets = deliveries[which ( deliveries$player_dismissed != ""), c("over", "player_dismissed")]
@@ -30,5 +30,5 @@ wickets
 w = table (wickets$over)
 w
 
-plot (w)
+plot (w, ylab = "Wickets", xlab = "Over", main = "Wickets taken per over in the IPL season 2019")
 
