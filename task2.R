@@ -21,3 +21,7 @@ total_runs
 run_over = data.frame (over = overs, runs = total_runs)
 
 ggplot(run_over, aes(over,runs), las=2) + geom_line(color = "green")
+
+
+wickets = deliveries[which ( deliveries$player_dismissed != ""), c("over", "player_dismissed")]
+wickets
