@@ -25,3 +25,10 @@ ggplot(run_over, aes(over,runs), las=2) + geom_line(color = "green")
 
 wickets = deliveries[which ( deliveries$player_dismissed != ""), c("over", "player_dismissed")]
 wickets
+
+
+w = table (wickets$over)
+w
+
+plot (w)
+
