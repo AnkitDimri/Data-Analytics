@@ -1,6 +1,6 @@
 library (ggplot2)
 
-deliveries = read.csv2 ("datasets/task2/deliveries 1.csv")
+deliveries = read.csv2 ("datasets/task2/deliveries 1.csv", sep = ",")
 deliveries = as.data.frame (deliveries)
 deliveries
 
