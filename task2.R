@@ -32,3 +32,22 @@ w
 
 plot (w, ylab = "Wickets", xlab = "Over", main = "Wickets taken per over in the IPL season 2019")
 
+
+team = deliveries [, c ("batting_team", "total_runs")]
+teams = unique (team$batting_team)
+teams
+
+
+tms = c()
+rns = c()
+for (t in teams) {
+  tms = c(tms, t)
+  rns = c(rns, sum (team [which (team$batting_team == t), "total_runs"]))
+}
+
+team_runs = data.frame (teams = tms, runs = rns)
+team_runs
+
+ggplot(team_runs, aes(x = factor (teams), y = runs), las=2) + geom_bar(color = "green") + labs (title = "Runs scored per over in the IPL season 2019", x = "Over", y = "Runs")
+
+barplot (height = team_runs$runs, horiz = F , names.arg = factor (team_runs$teams), las = 2, ylim = c(2000, 3000))
