@@ -50,4 +50,6 @@ team_runs
 
 ggplot(team_runs, aes(x = factor (teams), y = runs), las=2) + geom_bar(color = "green") + labs (title = "Runs scored per over in the IPL season 2019", x = "Over", y = "Runs")
 
-barplot (height = team_runs$runs, horiz = F , names.arg = factor (team_runs$teams), las = 2, ylim = c(2000, 3000))
+par (mar = c (5,8.5,5,2))
+barplot (height = team_runs$runs, horiz = T , names.arg = factor (team_runs$teams), las = 1, cex.names = 0.7)
+
