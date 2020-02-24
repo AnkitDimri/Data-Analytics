@@ -102,10 +102,10 @@ baller = baller [order (baller$Score, decreasing = TRUE), ]
 
 #RANKING BATSMAN
 
-bt = read.csv("/home/samroadie/Desktop/DA_Lab/LAB2/batsman.csv")
-bt = bt[,c("PLAYER","INN","RUNS","AVG","SR","X4S", "X6S")]
+bt = read.csv("batsman.csv")
+bt = bt [, c("PLAYER", "INN", "RUNS", "AVG", "SR", "X4S", "X6S")]
 bt
-bt['RUN/INN'] = bt['RUNS']/bt['INN']
+bt ['RUN/INN'] = bt ['RUNS']/bt['INN']
 bt
 
 
@@ -114,10 +114,10 @@ w1 = 7
 w2 = 4
 w3 = 5
 w4 = 1
-bt['Score'] = w1*bt$`RUN/INN` + w2*bt$X4S +w3*bt$X6S + w4*bt$SR
-bt= bt[order(bt$Score,decreasing = TRUE),]
+bt ['Score'] = w1 * bt$`RUN/INN` + w2 * bt$X4S +w3 * bt$X6S + w4 * bt$SR
+bt = bt [order (bt$Score, decreasing = TRUE),]
 bt
-cd = data.frame(bt[1:10,])
+cd = data.frame (bt [1:10, ])
 cd
 
 # plotting top 10 batsman
