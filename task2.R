@@ -100,6 +100,8 @@ baller ['Score'] = w1 * baller ['WKTS/MATCHES'] + w2 * baller ['ECONOMY']
 baller ['Score'] = baller ['Score'] + min (baller$Score) * (-1)
 baller = baller [order (baller$Score, decreasing = TRUE), ]
 
+baller
+
 #RANKING BATSMAN
 
 bt = read.csv("batsman.csv")
@@ -118,8 +120,8 @@ bt ['Score'] = w1 * bt$`RUN/INN` + w2 * bt$X4S +w3 * bt$X6S + w4 * bt$SR
 bt = bt [order (bt$Score, decreasing = TRUE),]
 bt
 cd = data.frame (bt [1:10, ])
+cd = cd [10:1, ]
 cd
-
 # plotting top 10 batsman
-
-ggplot(cd,aes(x =factor( PLAYER),y=RUNS))+ylab("RUNS") + geom_bar(stat = "identity",position = "dodge") + theme(axis.text.x = element_text(angle = 90, hjust = 1))+ggtitle("Top 10 players runs")
+par (mar = c (5,6.5,5,2))
+barplot (height = cd$AVG, horiz = T , names.arg = factor (cd$PLAYER), las = 1, cex.names = 0.7, col = "blue4", xlim = c (0, 100))
