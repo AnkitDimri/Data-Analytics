@@ -79,3 +79,47 @@ player_runs = player_runs [1:10,]
 
 par (mar = c (5,4.5,5,2))
 barplot (height = player_runs$runs, horiz = T , names.arg = factor (player_runs$player), las = 1, cex.names = 0.7, col = "blue4", xlim = c (0, 800))
+
+
+
+
+
+
+baller = read.csv("baller.csv")
+baller
+
+#RANKING BAllERS
+
+baller ['WKTS/MATCHES'] = baller ['WKTS']/baller ['MATCHES']
+baller ['ECONOMY'] = baller ['RUNS']/(baller ['BALLS']/6)
+
+w1 = 5
+w2 = -3
+
+baller ['Score'] = w1 * baller ['WKTS/MATCHES'] + w2 * baller ['ECONOMY']
+baller ['Score'] = baller ['Score'] + min (baller$Score) * (-1)
+baller = baller [order (baller$Score, decreasing = TRUE), ]
+
+#RANKING BATSMAN
+
+bt = read.csv("/home/samroadie/Desktop/DA_Lab/LAB2/batsman.csv")
+bt = bt[,c("PLAYER","INN","RUNS","AVG","SR","X4S", "X6S")]
+bt
+bt['RUN/INN'] = bt['RUNS']/bt['INN']
+bt
+
+
+
+w1 = 7
+w2 = 4
+w3 = 5
+w4 = 1
+bt['Score'] = w1*bt$`RUN/INN` + w2*bt$X4S +w3*bt$X6S + w4*bt$SR
+bt= bt[order(bt$Score,decreasing = TRUE),]
+bt
+cd = data.frame(bt[1:10,])
+cd
+
+# plotting top 10 batsman
+
+ggplot(cd,aes(x =factor( PLAYER),y=RUNS))+ylab("RUNS") + geom_bar(stat = "identity",position = "dodge") + theme(axis.text.x = element_text(angle = 90, hjust = 1))+ggtitle("Top 10 players runs")
