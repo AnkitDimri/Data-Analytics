@@ -99,8 +99,11 @@ w2 = -3
 baller ['Score'] = w1 * baller ['WKTS/MATCHES'] + w2 * baller ['ECONOMY']
 baller ['Score'] = baller ['Score'] + min (baller$Score) * (-1)
 baller = baller [order (baller$Score, decreasing = TRUE), ]
+baller = baller [1:10, ]
+baller = baller [10:1, ]
 
-baller
+par (mar = c (5,6.5,5,2))
+barplot (height = baller$ECONOMY, horiz = T , names.arg = factor (baller$PLAYER), las = 1, cex.names = 0.7, col = "blue4", xlim = c (0, 10))
 
 #RANKING BATSMAN
 
