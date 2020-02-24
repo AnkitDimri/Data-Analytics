@@ -53,3 +53,29 @@ ggplot(team_runs, aes(x = factor (teams), y = runs), las=2) + geom_bar(color = "
 par (mar = c (5,8.5,5,2))
 barplot (height = team_runs$runs, horiz = T , names.arg = factor (team_runs$teams), las = 1, cex.names = 0.7, col = "blue4", xlim = c (0, 3000))
 
+
+
+
+
+
+
+
+players_runs = deliveries [, c ("batsman", "batsman_runs")]
+players = unique (players_runs$batsman)
+players
+
+plyr = c()
+rn = c()
+for (p in players) {
+  plyr = c(plyr, p)
+  rn = c(rn, sum (players_runs [which (players_runs$batsman == p), "batsman_runs"]))
+}
+
+player_runs = data.frame (player = plyr, runs = rn)
+player_runs
+
+player_runs = player_runs [order (player_runs$runs,decreasing = T),]
+player_runs = player_runs [1:10,]
+
+par (mar = c (5,4.5,5,2))
+barplot (height = player_runs$runs, horiz = T , names.arg = factor (player_runs$player), las = 1, cex.names = 0.7, col = "blue4", xlim = c (0, 800))
