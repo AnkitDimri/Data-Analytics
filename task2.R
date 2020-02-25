@@ -83,8 +83,6 @@ barplot (height = player_runs$runs, horiz = T , names.arg = factor (player_runs$
 
 
 
-
-
 baller = read.csv("baller.csv")
 baller
 
@@ -93,8 +91,8 @@ baller
 baller ['WKTS/MATCHES'] = baller ['WKTS']/baller ['MATCHES']
 baller ['ECONOMY'] = baller ['RUNS']/(baller ['BALLS']/6)
 
-w1 = 5
-w2 = -3
+w1 = 4
+w2 = -2
 
 baller ['Score'] = w1 * baller ['WKTS/MATCHES'] + w2 * baller ['ECONOMY']
 baller ['Score'] = baller ['Score'] + min (baller$Score) * (-1)
@@ -103,7 +101,7 @@ baller = baller [1:10, ]
 baller = baller [10:1, ]
 
 par (mar = c (5,6.5,5,2))
-barplot (height = baller$ECONOMY, horiz = T , names.arg = factor (baller$PLAYER), las = 1, cex.names = 0.7, col = "blue4", xlim = c (0, 10))
+barplot (height = baller$ECONOMY, horiz = T , names.arg = factor (baller$PLAYER), las = 1, cex.names = 0.7, col = "blue4", xlim = c (0, 10), xlab =  "Economy", main = "Player rankings (top to down) \nand their Economy")
 
 #RANKING BATSMAN
 
@@ -127,4 +125,25 @@ cd = cd [10:1, ]
 cd
 # plotting top 10 batsman
 par (mar = c (5,6.5,5,2))
-barplot (height = cd$AVG, horiz = T , names.arg = factor (cd$PLAYER), las = 1, cex.names = 0.7, col = "blue4", xlim = c (0, 100))
+barplot (height = cd$AVG, horiz = T , names.arg = factor (cd$PLAYER), las = 1, cex.names = 0.7, col = "blue4", xlim = c (0, 100), xlab =  "Runs per match", main = "Player rankings (top to down) \nand their average runs scored")
+
+
+
+
+
+
+
+
+
+######################################################################################################################################################
+
+# Finding covariance of the top 10 batsmen
+
+player_runs$player
+cd
+p = cd$PLAYER
+for (pl in p) {
+  
+  
+  
+}
