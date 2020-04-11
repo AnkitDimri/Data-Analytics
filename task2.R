@@ -139,11 +139,39 @@ barplot (height = cd$AVG, horiz = T , names.arg = factor (cd$PLAYER), las = 1, c
 
 # Finding covariance of the top 10 batsmen
 
-player_runs$player
-cd
-p = cd$PLAYER
-for (pl in p) {
-  
-  
-  
-}
+
+######### Finding Coefficient of variance ###########
+sd(ind_ply$LokeshRahul)*100/mean(ind_ply$DavidWarner)
+sd(ind_ply$LokeshRahul)*100/mean(ind_ply$LokeshRahul)
+sd(ind_ply$ShikharDhawan)*100/mean(ind_ply$ShikharDhawan)
+sd(ind_ply$JonnyBairstow)*100/mean(ind_ply$JonnyBairstow)
+sd(ind_ply$ShreyasIyer)*100/mean(ind_ply$ShreyasIyer)
+sd(ind_ply$AjinkyaRahane)*100/mean(ind_ply$AjinkyaRahane)
+sd(ind_ply$QuintondeKock )*100/mean(ind_ply$QuintondeKock )
+sd(ind_ply$HardikPandya)*100/mean(ind_ply$HardikPandya)
+sd(ind_ply$MSDhoni)*100/mean(ind_ply$MSDhoni)
+sd(ind_ply$ShaneWatson)*100/mean(ind_ply$ShaneWatson)
+
+
+############### PLOT 1: Box plot for David Warner
+boxplot(ind_ply$DavidWarner)
+num = as.numeric(ind_ply$DavidWarner)
+outvalues = boxplot(num)$out
+which(ind_ply$DavidWarner %in% outvalues) 
+
+############### PLOT 2: Box plot for LokeshRahul
+boxplot(ind_ply$LokeshRahul)
+num = as.numeric(ind_ply$LokeshRahul)
+outvalues = boxplot(num)$out
+which(ind_ply$LokeshRahul %in% outvalues) 
+
+
+############### PLOT 3: Box plot for MSDhoni
+boxplot(ind_ply$MSDhoni)
+num = as.numeric(ind_ply$MSDhoni)
+outvalues = boxplot(num)$out
+which(ind_ply$MSDhoni %in% outvalues) 
+
+
+######## corelation between M.S. Dhoni and Shane Watson ############
+cor.test(ind_ply$MSDhoni, ind_ply$ShaneWatson,  method = "spearman")
