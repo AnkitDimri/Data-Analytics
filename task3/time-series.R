@@ -2,15 +2,50 @@
 im = read.csv2("imports.csv", sep = ",")
 im
 
-imports = im [,c (1,2)]
-imports
+imports = im [,c (2)]
+
 
 
 #2 Make time series variable out of it
-im = ts (im)
-ts.plot (im [[, 2:ncol (im)]])
+imports = ts (imports, frequency = 12)
+ts.plot (imports)
+
+
 
 #3 Plotting the yearly mean values
+plot (aggregate (imports, FUN = mean))
+
+
+# Boxplot monthly
+boxplot (imports~cycle(imports))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 mean = list ()
 for (i in (1:ceiling (nrow (im) /  12)))
   mean [[i]] = c (i)
