@@ -2,9 +2,11 @@
 im = read.csv2("imports.csv", sep = ",")
 im
 
+imports = im [,c (1,2)]
+
 #2 Make time series variable out of it
 im = ts (im)
-plot (im [[, 2:ncol (im)]])
+ts.plot (im [[, 2:ncol (im)]])
 
 #3 Plotting the yearly mean values
 mean = list ()
@@ -40,3 +42,5 @@ plot (mean)
 
 #4 Plotting the yearly boxplots
 im.stl = stl (im, s.window = )
+d = decompose (df)
+df
