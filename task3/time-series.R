@@ -3,6 +3,8 @@ im = read.csv2("imports.csv", sep = ",")
 im
 
 imports = im [,c (1,2)]
+imports
+
 
 #2 Make time series variable out of it
 im = ts (im)
@@ -44,3 +46,47 @@ plot (mean)
 im.stl = stl (im, s.window = )
 d = decompose (df)
 df
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Clean dataset
+df <- data.frame (matrix (ncol = 13,  nrow = 0))
+colnames (df) = c ("year", "jan", "feb", "march", "april", "may", "june", "july", "aug", "sep", "oct", "nov", "dec")
+i = 1
+year = 2000
+flag = 0
+while (i < nrow (imports)) {
+  r = c (year)
+  for (j in i:(i+11)) {
+    if (is.na (imports [j, 2])) {
+      break
+      flag = 1
+    }
+    r = c (r, imports [j, 2])
+  }
+  if (flag)
+    break
+  df [nrow (df) +1, ] = r
+  year = year + 1
+  i = i + 12
+} 
+df
+
+imports = df
