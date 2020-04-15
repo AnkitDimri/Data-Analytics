@@ -83,7 +83,7 @@ rmse (df$Point.Forecast, df$tail.imports..54.)
 
 
 #12 change alpha beta and gamma values to improve the model
-imports.hw.improved = HoltWinters (imports.hw.train, alpha = "0.5" ,beta = "0.5" ,gamma = "0.6" )
+imports.hw.improved = HoltWinters (imports.hw.train, alpha = "0.35" ,beta = "0.02" ,gamma = "0.18" )
 
 model.predict = predict (imports.hw.improved, n.ahead = 54)
 round (model.predict)
@@ -93,7 +93,8 @@ act_value = tail (imports, 54)
 
 rmse(act_value, p_values)
 
-# NO! even after trying for many values, can't get lower rms error
+# After trying for many combination of alpa beta and gamma, the minumum rms error is given for the combination of
+# alpha = 0.35, beta = 0.02 and gamma = 0.18
 
 
 
