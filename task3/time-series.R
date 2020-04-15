@@ -1,3 +1,5 @@
+library(forecast)
+
 # import the dataset
 im = read.csv2("imports.csv", sep = ",")
 im
@@ -52,9 +54,12 @@ plot (imports.residue)
 
 
 
+#8 Model using HoltWinters method
+imports.hw.train = window(imports,start = c(1,1) ,end=c(10,5))
+imports.hw.fc <- hw(imports.hw.train, seasonal = "additive", h = 54)
 
-
-
+summary (imports.hw.fc)
+plot (imports.hw.fc)
 
 
 
