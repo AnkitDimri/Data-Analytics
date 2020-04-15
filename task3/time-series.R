@@ -72,8 +72,8 @@ df = data.frame (imports.hw.fc , tail (imports, 54))
 
 timestamp = time (tail (imports, 54))
 plt = as.data.frame (data.frame (df$Point.Forecast, df$tail.imports..54.))
-ggplot (plt, aes (timestamp)) + geom_line(aes(y=dfplt$df.Point.Forecast),colour = "red")+
-  geom_line (aes (y = dfplt$df.tail.imports..54.), colour = "green") + xlab ("Time") + ylab ("Imports") + 
+ggplot (plt, aes (timestamp)) + geom_line(aes(y = plt$df.Point.Forecast),colour = "red")+
+  geom_line (aes (y = plt$df.tail.imports..54.), colour = "green") + xlab ("Time") + ylab ("Imports") + 
   title ("Predicted (red) and actual (green) values graph")
 
 
@@ -169,3 +169,4 @@ ggplot(arima_df.clean, aes(XX)) + geom_line (aes (y = predicted.cleandata$Point.
 
 ggplot(arima_df,aes(X)) + geom_line (aes (y = predicted$Point.Forecast), colour = "red") +
   geom_line (aes (y = act_value), colour = "green") + xlab("Time") + ylab("imports")
+
