@@ -33,16 +33,21 @@ plot (imports.dec)
 
 # Showing its trend
 plot (imports.dec$trend)
+plot (imports.stl$time.series [,2])
+# Shows increasing trend
 
 
 
 #6 Type of seasonality
 plot (imports.dec$seasonal)
+plot (imports.stl$time.series [,1])
+# Increasing monthly and similar yearly
 
 
 
-#7 
-
+#7 Residue after you remove trend and seasonality
+imports.residue = imports - (imports.stl$time.series [,1] + imports.stl$time.series [,2])
+plot (imports.residue)
 
 
 
