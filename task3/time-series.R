@@ -16,11 +16,32 @@ ts.plot (imports)
 plot (aggregate (imports, FUN = mean))
 
 
-# Boxplot monthly
+
+#4 Boxplot monthly
 boxplot (imports~cycle(imports))
 
 
 
+#5 Decompose the time series
+# using STL
+imports.stl = stl (imports, s.window = "periodic")
+plot (imports.stl)
+
+# Using decompose
+imports.dec = decompose (imports)
+plot (imports.dec)
+
+# Showing its trend
+plot (imports.dec$trend)
+
+
+
+#6 Type of seasonality
+plot (imports.dec$seasonal)
+
+
+
+#7 
 
 
 
@@ -37,91 +58,83 @@ boxplot (imports~cycle(imports))
 
 
 
-
-
-
-
-
-
-
-
-
-mean = list ()
-for (i in (1:ceiling (nrow (im) /  12)))
-  mean [[i]] = c (i)
-
-for (i in (1:ceiling (nrow (im) /  12))) {
-  m = rep (0, ncol (im) - 1)
-  for (j in 1:12) {
-    if (i+j > nrow (im)) 
-      break
-    
-    for (k in 2:ncol (im))
-      m [k-1] = m [k-1] + im [i+j, ] [k]
-
-  }
-  m = m / 12
-  mean [[i]] = c (mean [[i]], m)
-}
-mean
-
-
-df <- data.frame(matrix(ncol = 7, nrow = 0))
-colnames (df) = c ("years", "MeanAirportsCIF", "MeanParcelPostCIF", "MeanSeaportsCIF", "MeanAirportsWeight", "MeanParcelPostWeight", "MeanSeaportsWeight")
-
-for (i in (1:ceiling (nrow (im) /  12)))
-  df [nrow (df) + 1, ] = c (mean [[i]])
-
-mean = ts (df [, 2:ncol (df)])
-plot (mean)
-
-
-
-#4 Plotting the yearly boxplots
-im.stl = stl (im, s.window = )
-d = decompose (df)
-df
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Clean dataset
-df <- data.frame (matrix (ncol = 13,  nrow = 0))
-colnames (df) = c ("year", "jan", "feb", "march", "april", "may", "june", "july", "aug", "sep", "oct", "nov", "dec")
-i = 1
-year = 2000
-flag = 0
-while (i < nrow (imports)) {
-  r = c (year)
-  for (j in i:(i+11)) {
-    if (is.na (imports [j, 2])) {
-      break
-      flag = 1
-    }
-    r = c (r, imports [j, 2])
-  }
-  if (flag)
-    break
-  df [nrow (df) +1, ] = r
-  year = year + 1
-  i = i + 12
-} 
-df
-
-imports = df
+# 
+# mean = list ()
+# for (i in (1:ceiling (nrow (im) /  12)))
+#   mean [[i]] = c (i)
+# 
+# for (i in (1:ceiling (nrow (im) /  12))) {
+#   m = rep (0, ncol (im) - 1)
+#   for (j in 1:12) {
+#     if (i+j > nrow (im)) 
+#       break
+#     
+#     for (k in 2:ncol (im))
+#       m [k-1] = m [k-1] + im [i+j, ] [k]
+# 
+#   }
+#   m = m / 12
+#   mean [[i]] = c (mean [[i]], m)
+# }
+# mean
+# 
+# 
+# df <- data.frame(matrix(ncol = 7, nrow = 0))
+# colnames (df) = c ("years", "MeanAirportsCIF", "MeanParcelPostCIF", "MeanSeaportsCIF", "MeanAirportsWeight", "MeanParcelPostWeight", "MeanSeaportsWeight")
+# 
+# for (i in (1:ceiling (nrow (im) /  12)))
+#   df [nrow (df) + 1, ] = c (mean [[i]])
+# 
+# mean = ts (df [, 2:ncol (df)])
+# plot (mean)
+# 
+# 
+# 
+# #4 Plotting the yearly boxplots
+# im.stl = stl (im, s.window = )
+# d = decompose (df)
+# df
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# # Clean dataset
+# df <- data.frame (matrix (ncol = 13,  nrow = 0))
+# colnames (df) = c ("year", "jan", "feb", "march", "april", "may", "june", "july", "aug", "sep", "oct", "nov", "dec")
+# i = 1
+# year = 2000
+# flag = 0
+# while (i < nrow (imports)) {
+#   r = c (year)
+#   for (j in i:(i+11)) {
+#     if (is.na (imports [j, 2])) {
+#       break
+#       flag = 1
+#     }
+#     r = c (r, imports [j, 2])
+#   }
+#   if (flag)
+#     break
+#   df [nrow (df) +1, ] = r
+#   year = year + 1
+#   i = i + 12
+# } 
+# df
+# 
+# imports = df
