@@ -126,6 +126,35 @@ ggplot(arima_df,aes(X)) + geom_line (aes (y = predicted$Point.Forecast), colour 
 
 
 
+#16 RMS error between predicted and actutal values
+rmse (act_value, predicted$Point.Forecast)
+
+
+
+
+#17 Fine tuning the model by manually changing the values of p, d, and q in ARIMA
+model.imp = auto.arima (imports.arima.train, max.p = 0, max.q = 0, max.d = 1)
+arima.imp <- forecast (model.imp, h = 54)
+plot (arima.imp)
+
+pred = data.frame (arima.imp)
+rmse (act_value, pred$Point.Forecast)
+# for p = 0, q = 0 and d =1, rms error is minimum = for ARIMA forcasting
+
+
+
+
+#18 Based on your experiment, which method is better and why? HoltWinters or ARIMA?
+
+#Arima is a better method based on my observation as it gives better prediction and less RMS. More accuracy.
+
+
+#19 
+
+
+
+
+
 
 
 
