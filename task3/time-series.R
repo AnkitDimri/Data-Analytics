@@ -150,4 +150,22 @@ rmse (act_value, pred$Point.Forecast)
 #Arima is a better method based on my observation as it gives better prediction and less RMS. More accuracy.
 
 
-#19 
+#19 Cleaning
+# some values have a significant change after cleaning the data
+imports - tsclean (imports)
+# Applying arma on cleaned as well as original data and looking at the difference
+clean.imports = tsclean (imports)
+clean.arima.train <- window (clean.imports, start = c (1, 1) ,end = c (10, 5))
+model.cleandata = auto.arima(clean.arima.train)
+model.cleandata
+clean.arima.predict <- forecast (model.cleandata, h = 54)
+plot (clean.arima.predict)
+predicted.cleandata = data.frame (clean.arima.predict)
+XX = time (act_value)
+arima_df.clean <- as.data.frame (data.frame (XX, predicted.cleandata$Point.Forecast, act_value))
+
+ggplot(arima_df.clean, aes(XX)) + geom_line (aes (y = predicted.cleandata$Point.Forecast), colour = "red") +
+  geom_line (aes (y = act_value), colour = "green") + xlab("Time") + ylab("imports")
+
+ggplot(arima_df,aes(X)) + geom_line (aes (y = predicted$Point.Forecast), colour = "red") +
+  geom_line (aes (y = act_value), colour = "green") + xlab("Time") + ylab("imports")
