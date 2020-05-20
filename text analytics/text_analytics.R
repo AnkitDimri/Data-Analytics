@@ -1,4 +1,3 @@
-library (tidyr)
 library (stringr)
 library (BSDA)
 
@@ -19,7 +18,7 @@ head (df [,1])
 # Clean the dataset
 tweets = df [,1]
 tweets = str_replace_all (tweets, "[^[:alnum:]]", " ")
-tweets
+head (tweets)
 
 df [,1] = tolower (tweets)
 head (df)
@@ -70,8 +69,6 @@ SentimentScores <- cbind ("sentiment" = rownames (Sentimentscores), Sentimentsco
 rownames (SentimentScores) <- NULL
 ggplot (data = SentimentScores, aes (x = sentiment, y = Score)) + geom_bar (aes (fill = sentiment), stat = "identity") + theme (legend.position = "none") + xlab("Sentiments") + ylab ("scores") + ggtitle ("Total sentiment based on scores")
 
-
-install.packages("ggpubr")
 
 t.test(mysentiment['positive'], mu = 0, alternative = "two.sided")
 mysentiment
